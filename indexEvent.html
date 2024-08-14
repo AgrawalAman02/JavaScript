@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Events</title>
+    <style>
+        div{
+            
+            padding: 5%;
+            margin: 5%;
+        }
+        body{
+            background-color: bisque;
+        }
+        h1{
+            margin-bottom: 2.3rem;
+            
+        }
+        h2{
+            margin-top: 2.7rem;
+            margin-bottom: 2.7rem;
+            margin-right: 2.7rem;
+            margin-left: 35%;
+            text-decoration: underline;
+
+        }
+        button{
+            background-color: brown;
+            color: beige;
+            margin-left: 25%;
+            margin-right: 2.7rem;
+            border-radius: 5%;
+            
+            
+        }
+        button:hover{
+            background-color: bisque;
+            color:brown;
+        }
+        section{
+            border-radius: .5%;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh;
+            padding: 1%;
+            margin: 2%;
+            background-image: linear-gradient(to right, #e9813c,#f0ed58e0, #92ece1e0);
+
+            /* background-color: rgba(255, 0, 0, 0.1); Red background with 50% opacity */
+        }
+        .output1{
+            background-image: linear-gradient(to right, #e65c00, #f9d423);
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>We are going to learn how events works!</h1>
+        <!--! Start inline events -->
+        <h2>Inline events</h2>
+        <hr>
+        <button onclick="alert('welcome')" onmousemove="alert('your are hovering on the greeting')" >greeting</button>
+        <button  ondblclick="alert('why are y double clicking here?')">greeting again</button>
+        <!-- ! end inline events -->
+        <hr>
+        <!-- !  start dom event handler -->
+        <h2>Dom Event handler</h2>
+        <hr>
+        <button id="myBtn">greeting </button><button id="myBtn1">greeting again</button>
+        <!-- ! End dom event  -->
+        <hr>
+        <!-- !  -->
+        <h2>addEventListener Event handler</h2>
+        <hr>
+        <button id="myBtn2">greeting </button><button id="myBtn3">greeting again</button>
+        <hr>
+    </div>
+
+    <div class="keyEvent">
+        <input type="text" id = "myInput" placeholder="Type Something... "/>
+        <div class="output">
+            <p class="keyPressed">Key Pressed : </p>
+            <p class="keyCode">Key Code: </p>
+            <p class="charCode">Char Code: </p>
+            <p class="eventType">Event Type : </p>
+
+        </div>
+    </div>
+
+    <section class="input">
+        <input type="text" id = "myInput1" name="username" placeholder="Type Something" autocomplete="off">
+        <div class="output1">
+            <p class="inputValue">Input value :</p>
+            <p class="inputName">Input Name :</p>
+            <p class="inputType">input type :</p>
+            <p class="eventType1">Event Type :</p>
+        </div>
+    </section>
+
+    
+
+    <script>
+        document.getElementById("myBtn").onclick = ()=>{
+            alert('welcome to js page');
+        }
+
+        document.getElementById("myBtn2").addEventListener('dblclick', ()=>{
+            alert('welcome to js page on dbl click' );
+        });
+
+        //  for the keyboard events   : i> keydown   ii> keyup
+
+        const handleKeyPress = (event) => {
+            console.log(event);
+
+            console.log("Key Pressed :", event.key);
+            console.log("Key Code :", event.code);
+            console.log("Char Code :", event.key.charCodeAt(0));
+            console.log("Event type :", event.type);
+
+            document.querySelector(".keyPressed").textContent= `Key Pressed : ${event.key}`;
+            document.querySelector(".keyCode").textContent= `Key Code : ${event.code}`;
+            document.querySelector(".charCode").textContent= `Char Code : ${event.key.charCodeAt(0)}`;
+            document.querySelector(".eventType").textContent= `Key Type: ${event.type}`;
+        }
+
+        // now we are taking this data and printing it in the page 
+        // so we are selecting it by query selector and adding the event.key and other vlue in the text content 
+
+        
+
+        // Get the input element by its Id 
+        var myInput = document.getElementById("myInput");
+
+        myInput.addEventListener('keydown', handleKeyPress);
+        // myInput.addEventListener('keyup', handleKeyPress);// we can also do key up . until we pressd down the key , it will have no effect . when we release it it shows then... 
+
+
+
+        // now we are goint  to learn about the input event listenser 
+        const inputElem = document.getElementById("myInput1");
+
+        const handleInput = (event)=>{
+
+        // Display information about the input event in the console 
+        console.log("Input value : ", event.target.value);
+        console.log("Input name : ", event.target.name);
+        console.log("Input type : ", event.inputType);
+        console.log("Event type : ", event.type);
+
+        document.querySelector(".inputValue").textContent= `Input Value : ${event.target.value}`;
+        document.querySelector(".inputName").textContent= `Input name : ${event.target.name}`;
+        document.querySelector(".inputType").textContent= `Input type : ${event.inputType}`;
+        document.querySelector(".eventType1").textContent= `Event type : ${event.type}`;
+        }
+
+
+        // inputElem.addEventListener('input', handleInput);// uncomment it out... 
+
+        // we had given the name as username in the name section of the html . so we are getting the input name as username
+        // the difference betweent  the key event and the input event is key event only tell about the charecter and the input event tells about the total word as input
+
+        // now the below is more useful as we are inserting the value after the change 
+        //  means that until and unless we are in the input field we are not getting the value , when we get out of the inpuyt field then the value are reflected .
+        //  this sounds good ! :D
+        inputElem.addEventListener('change', handleInput);
+       
+    </script>
+        
+</body>
+</html>
