@@ -1,0 +1,55 @@
+/*
+// it also have the delails of what are axios and why we uses it ...
+//here is the code for the index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Going to learn About API</title>
+</head>
+<body>
+    
+    <h1>Get Random Cat Facts</h1>
+    <button>Show new Facts</button>
+    <p id="fact"></p>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="axios.js"></script>
+</body>
+</html>
+*/
+
+// for using axios we have to first install axios or we can import in the html file. check theindex.html 
+// <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+
+let p = document.querySelector("#fact");
+let btn = document.querySelector("button");
+let url = "https://catfact.ninja/fact";
+ 
+btn.addEventListener("click", async ()=>{    // why async ? as we are calling a async function , if we not use this then we get the process pending as the output
+    let fact =await getFacts();               // so we also use await to wait for this
+    // p.innerHTML = `<li>${fact}</li>`;
+    p.append(fact);
+    // p.innerHTML="<br>";
+});
+
+// if we print the inner html of the p inside the try block and we just call the getFact function as a callback then we dont need this await and async 
+// as this has issue as it will not tackle the case of error 
+
+// why Axios ? as we got data in the fetch is not in the readable format . but using axios , we got data in the reaponse in the readable format
+async function getFacts(){
+    try{
+        let res = await axios.get(url);  
+        console.log(res);
+        // check we got data in readable format so thats why we are using axios 
+        console.log(res.data);
+        console.log(res.data.fact);
+        return res.data.fact;
+    
+    }catch(err){
+        console.log("error ---  ", err);
+        return "No Facts Found, sorry";
+    }
+}
+
